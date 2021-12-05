@@ -1,0 +1,69 @@
+
+.container{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sliders{
+    width: 50%;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.scene{
+    width: 600px;
+    height:200px;
+    perspective: 1200px;
+    border: 1px red solid;
+}
+
+.cube {
+    width: 600px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+}
+.face{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+}
+.front{
+    background: #f00;
+    transform: translateZ(100px);
+}
+.back{
+    background: #0f0;
+    transform: rotateY(-180deg) translateZ(100px);
+}
+.left{
+    background: #00f;
+    transform: rotateY(-90deg) translateZ(100px);
+    width: 200px;
+}
+.right{
+    background: #ff0;
+    transform:  rotateY(90deg) translateZ(500px);
+    width: 200px;
+}
+.top{
+    background: #f0f;
+    transform: rotateX(90deg) translateZ(100px);
+}
+.bottom{
+    background: #0ff;
+    transform: rotateX(-90deg) translateZ(100px);
+}
