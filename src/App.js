@@ -1,20 +1,64 @@
 import React, { useState } from 'react'
 import AppBar from './components/common/AppBar';
-//import stack and slider
-import { Stack, Slider} from "@mui/material"
-import Cube from './components/cube';
+import { Container, Stack, Box, TextField, Grid, Button, List, ListItem, Typography } from '@mui/material';
+import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined';
+import WordCard from './features/WordCard';
 export default function App() {
-  const [rotate, setRotate] = useState({x:0, y:0, z:0});
   return (
     <div className="container" >
-      <Stack className="sliders" spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-        <Slider aria-label="Volume" max={360} value={rotate.x} onChange={(e,v)=>{ setRotate({x:v,y:rotate.y,z:rotate.z})  }} />
-        <Slider aria-label="Volume" max={360} value={rotate.y} onChange={(e,v)=>{ setRotate({x:rotate.x,y:v,z:rotate.z})  }} />
-        <Slider aria-label="Volume" max={360} value={rotate.z} onChange={(e,v)=>{ setRotate({x:rotate.x,y:rotate.y,z:v})  }} />
-      </Stack>
-      
+      <AppBar />
+      <Container maxWidth="md">
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Box mt={5} width="100%">
+            <Grid container spacing={2}>
+              <Grid item md={5} xs={12}>
+                <TextField fullWidth label="Türkçe" variant="outlined" />
+              </Grid>
+              <Grid justifyContent="center"
+                alignItems="center" item container md={2} xs={12}>
+                <SwapHorizontalCircleOutlinedIcon fontSize="large" />
+              </Grid>
+              <Grid item md={5} xs={12}>
+                <TextField fullWidth label="English" variant="outlined" />
+              </Grid>
+              <Grid item md={3} xs={0} />
+              <Grid item md={6} xs={12}>
 
-      <Cube rotate={{ x: rotate.x, y: rotate.y, z: rotate.z }} />
+                <Button fullWidth variant="outlined" color="primary"> Add To NoteBook </Button>
+              </Grid>
+            </Grid>
+          </Box>
+          <Box mt={5} width="100%">
+            <Grid container spacing={2}>
+              <Grid item md={4} xs={12}>
+                <TextField fullWidth size="small" label="Search..." variant="filled" />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <List sx={{
+                  width: '100%',
+                  overflow: 'auto',
+                  maxHeight: 500,
+                  '& ul': { padding: 0 },
+                }}
+                  subheader={<li />} >
+                  {new Array(50)
+                    .fill(<ListItem sx={{
+                      width: '100% !important',
+                    }}>
+                      <WordCard/>
+                    </ListItem>)
+                  }
+                </List>
+              </Grid>
+            </Grid>
+          </Box>
+        </Stack>
+      </Container>
     </div>
   )
 }
