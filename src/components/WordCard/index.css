@@ -26,13 +26,25 @@
 }
 .front{
     transform: translateZ(25px) !important;
+    perspective: 500px;
 }
 .back{
     transform: rotateY(-180deg) rotateZ(180deg) translateZ(25px) !important;
 }
+.left{
+    width: 50px;
+    position: absolute;
+    left: 0;
+    transform: translateZ(-60px);
+    backface-visibility: visible;
+    transform-origin: center;
+    background-color: red;
+    overflow: visible;
+}
 
 .top{
     transform: rotateX(90deg) translateZ(25px);
+
 }
 .bottom{
     transform: rotateX(-90deg) translateZ(25px);

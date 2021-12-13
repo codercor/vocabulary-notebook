@@ -1,16 +1,18 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const WordsSlice = createSlice({
     name: 'words',
-    initialState: [{
-        id: 1,
-        word: 'hello',
-        translation: 'merhaba',
-    }],
-    reducers:{
+    initialState: [
+        {
+            id: 1,
+            word: 'hello',
+            translation: 'merhaba',
+        }
+    ],
+    reducers: {
         addWord: (state, action) => {
             let isExist = state.find(word => word.word === action.payload.word) && state.find(word => word.translation === action.payload.translation);
-            if(!isExist) state.push(action.payload);
+            if (!isExist) state.push(action.payload);
             else return false;
         },
         deleteWord: (state, action) => {
@@ -19,5 +21,5 @@ export const WordsSlice = createSlice({
     }
 });
 
-export const {addWord, deleteWord} = WordsSlice.actions;
+export const { addWord, deleteWord } = WordsSlice.actions;
 export default WordsSlice.reducer;
