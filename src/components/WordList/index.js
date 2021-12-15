@@ -6,13 +6,13 @@ export default function WordList() {
     const words = useSelector(state => state.words);
 
     return (
-        <Box mt={5} width="100%">
-            <Grid container spacing={2}>
+        <Box className="word-list-box" mt={5} width="100%">
+            <Grid  container spacing={2}>
                 <Grid item md={4} xs={12}>
                     <TextField fullWidth size="small" label="Search..." variant="filled" />
                 </Grid>
                 <Grid item md={12} xs={12}>
-                    <List sx={{
+                    <List  sx={{
                         width: '100%',
                         overflow: 'auto',
                         maxHeight: 500,
@@ -21,7 +21,7 @@ export default function WordList() {
                         subheader={<li />} >
                         {words.map((item) => (
                             <ListItem key={item.id} sx={{ width: '100% !important' }}>
-                                <WordCard word={item.word} translation={item.translation} />
+                                <WordCard word={item.word} id={item.id} swipeRotation={item.swipeRotation} translation={item.translation} />
                             </ListItem>))
                         }
                     </List>
