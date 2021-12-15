@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Box3d from './Box3d'
-import { setAllSwipeRotation, setOneSwipeRotation } from "../../app/Slices/WordsSlice"
+import { setAllSwipeRotation, setOneSwipeRotation, deleteWord } from "../../app/Slices/WordsSlice"
 import { useDispatch } from 'react-redux'
 export default function WordCard({ word, translation, swipeRotation, id }) {
     const [rotate, setRotate] = useState({ x: 0, y: 0, z: 0 })
     const [swipeStart, setSwipeStart] = useState(null)
     const [swipeEnd, setSwipeEnd] = useState(null)
+    const [faceName, setFaceName] = useState("front")//front, back, top, bottom
 
     const dispatch = useDispatch()
 
@@ -17,7 +18,16 @@ export default function WordCard({ word, translation, swipeRotation, id }) {
         }))
     }
 
+    useEffect(() => {
+        if (rotate.x / 90 == 0) setFaceName("front")
+        if (rotate.x / 90 == 1) setFaceName("bottom")
+        if (rotate.x / 90 == 2) setFaceName("back")
+        if (rotate.x / 90 == 3) setFaceName("top")
+    }, [rotate]);
 
+    useEffect(() => {
+        console.log(faceName);
+    }, [faceName]);
 
     useEffect(() => {
         if (swipeStart && swipeEnd) {
@@ -35,29 +45,36 @@ export default function WordCard({ word, translation, swipeRotation, id }) {
 
 
     useEffect(() => {
+
         console.log("use effect");
         if (swipeRotation != "center") {
             dispatch(setAllSwipeRotation({ rotation: "center", id: id }))
         }
         if (swipeRotation === "left") {
-            console.log("left e geldi");
-            console.log(rotate.x);
-            if (rotate.x / 90 == 0) setRotate({ x: rotate.x, y: rotate.y - 45, z: rotate.z })
-            if (rotate.x / 90 == 1) setRotate({ x: rotate.x, y: rotate.y, z: rotate.z + 45 })
-            if (rotate.x / 90 == 2) setRotate({ x: rotate.x, y: rotate.y+45, z: rotate.z })
-            if (rotate.x / 90 == 3) setRotate({ x: rotate.x, y: rotate.y, z: rotate.z -45})
-
+            console.log("r left");
+            if (faceName == "front") setRotate({ x: rotate.x, y: rotate.y - 45, z: rotate.z })
+            if (faceName == "bottom") setRotate({ x: rotate.x, y: rotate.y, z: rotate.z + 45 })
+            if (faceName == "back") setRotate({ x: rotate.x, y: rotate.y+45, z: rotate.z })
+            if (faceName == "top") setRotate({ x: rotate.x, y: rotate.y, z: rotate.z - 45 })
         } else if (swipeRotation === "right") {
-            console.log("right e geldi");
-            setRotate({ x: rotate.x, y: rotate.y + 45, z: rotate.z })
+            console.log("r right");
+            if (faceName == "front") setRotate({ x: rotate.x, y: rotate.y + 45, z: rotate.z })
+            if (faceName == "bottom") setRotate({ x: rotate.x, y: rotate.y, z: rotate.z  - 45 })
+            if (faceName == "back") setRotate({ x: rotate.x, y: rotate.y-45, z: rotate.z })
+            if (faceName == "top") setRotate({ x: rotate.x, y: rotate.y, z: rotate.z + 45 })
         } else if (swipeRotation === "center") {
-            console.log("center e geldi");
-            setRotate({ x: rotate.x, y: 0, z: rotate.z })
+            console.log("r center");
+            setRotate({ x: rotate.x, y: 0, z: 0})
         }
     }, [swipeRotation])
     return (
         <div onClick={() => {
+            if (swipeRotation != "center") {
+                setSwipeRotation("center", id)
+            }
             rotate.x == 270 ? setRotate({ x: 0, y: 0, z: 0 }) : setRotate({ ...rotate, x: rotate.x + 90 })
+
+
         }} style={{ width: '100%' }}>
 
             <Box3d onTouchEnd={(e) => {
@@ -66,7 +83,10 @@ export default function WordCard({ word, translation, swipeRotation, id }) {
             }} onTouchStart={(e) => {
                 // console.log("Start ",e);
                 setSwipeStart(e.changedTouches[0].clientX)
-            }} faces={{ front: word, bottom: translation, back: word, top: translation }} rotate={rotate} />
+            }} onDelete={(e)=>{
+                e.stopPropagation();   
+                dispatch(deleteWord({id}))       
+            }}  faces={{ front: word, bottom: translation, back: word, top: translation }} rotate={rotate} />
         </div>
     )
 }

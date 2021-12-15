@@ -13,7 +13,7 @@ export default function index(props) {
                 <div className="face back" style={style}> {props.faces.back} </div>
                 <div className="face top" style={style}> {props.faces.top} </div>
                 <div className="face bottom" style={style}> {props.faces.bottom} </div>
-                <div className="face left" style={style}><DeleteIcon /></div>
+                <div onClick={props.onDelete} className="face left" style={style}><DeleteIcon /></div>
                 <div className="face right" style={style}><EditIcon /></div>
             </div>
         </div>

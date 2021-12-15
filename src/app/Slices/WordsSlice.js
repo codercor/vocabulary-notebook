@@ -35,7 +35,9 @@ export const WordsSlice = createSlice({
             else return false;
         },
         deleteWord: (state, action) => {
-            state.filter(word => word.id !== action.payload.id);
+            console.log("silme gibi bişey oldu")
+            state= state.filter(word => word.id !== action.payload.id);
+            return state;
         },
         setAllSwipeRotation: (state, action) => {
             console.log("setAllSwipeRotation", action.payload);
