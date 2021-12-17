@@ -39,6 +39,15 @@ export const WordsSlice = createSlice({
             state= state.filter(word => word.id !== action.payload.id);
             return state;
         },
+        updateWord: (state,action) =>{
+            state.forEach(word => {
+                if(word.id === action.payload.id) {
+                    word.word = action.payload.word;
+                    word.translation = action.payload.translation;
+                }
+            });
+            return state;
+        },
         setAllSwipeRotation: (state, action) => {
             console.log("setAllSwipeRotation", action.payload);
             state.forEach(word => {
@@ -57,5 +66,5 @@ export const WordsSlice = createSlice({
     }
 });
 
-export const { addWord, deleteWord, setAllSwipeRotation,setOneSwipeRotation } = WordsSlice.actions;
+export const { addWord, deleteWord, setAllSwipeRotation,setOneSwipeRotation,updateWord } = WordsSlice.actions;
 export default WordsSlice.reducer;
