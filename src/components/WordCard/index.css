@@ -18,7 +18,7 @@
 	height: 100%;
 	position: absolute;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	backface-visibility: visible;
 	background-color: white;
@@ -28,6 +28,7 @@
 .front {
 	transform: translateZ(25px) !important;
 	perspective: 500px;
+
 }
 .back {
 	transform: rotateY(-180deg) rotateZ(180deg) translateZ(25px) !important;
@@ -54,4 +55,7 @@
 }
 .bottom {
 	transform: rotateX(-90deg) translateZ(25px);
+}
+
+.rotation-button{
 }
