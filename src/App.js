@@ -1,18 +1,33 @@
 import React, { } from 'react'
 import AppBar from './components/common/AppBar';
-import { Container, Stack } from '@mui/material';
-import WordInputs from './components/WordInputs';
-import WordList from './components/WordList';
+import { Container } from '@mui/material';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
+//page imports
+import Home from './views/Home';
+import Application from './views/Application';
+import Login from './views/Login';
+
+
 export default function App() {
   return (
     <div className="container" >
-      <AppBar />
-      <Container maxWidth="md">
-        <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-          <WordInputs />
-          <WordList />
-        </Stack>
-      </Container>
+      <BrowserRouter>
+        <AppBar />
+
+        <Container maxWidth="md">
+          <Routes>
+            <Route path="/application" element={<Application />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Container>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
